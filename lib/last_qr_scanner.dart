@@ -19,16 +19,12 @@ class LastQrScannerPreview extends StatefulWidget {
 class _QRViewState extends State<LastQrScannerPreview> {
   @override
   Widget build(BuildContext context) {
-    var androidView = AndroidView(
-      viewType: 'last_qr_scanner/qrview',
-      onPlatformViewCreated: _onPlatformViewCreated,
-    );
-
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return androidView;
-    }
-
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return AndroidView(
+        viewType: 'last_qr_scanner/qrview',
+        onPlatformViewCreated: _onPlatformViewCreated,
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return UiKitView(
         viewType: 'last_qr_scanner/qrview',
         onPlatformViewCreated: _onPlatformViewCreated,
