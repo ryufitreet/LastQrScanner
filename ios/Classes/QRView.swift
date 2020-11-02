@@ -54,11 +54,6 @@ public class QRView:NSObject,FlutterPlatformView {
                     self?.resumeScanner()
                 default: result(FlutterMethodNotImplemented)
             }
-            /*guard call.method == "setDimensions" else {
-                result(FlutterMethodNotImplemented)
-                return
-            }
-            var arguments = call.arguments as! Dictionary<String, Double>*/
             
         })
         return previewView
