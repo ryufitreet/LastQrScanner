@@ -4,6 +4,16 @@ import 'package:flutter/foundation.dart';
 
 typedef void QRViewCreatedCallback(QRViewController controller);
 
+
+/*
+  TODO зачем нужна хуйня с creationParams на страте - не понятно.
+  Она по факту просто делает размер вьюхи нулевым. Настоящий размер 
+  получается через ключ, который нужно пробросить в компонент и _вероятно_ который
+  делает роут не до конца очищаемым после закрытия.
+  1. Попробовать сделать так, чтобы вьюха открывалась без ключей. Для этого перепишу init на получение Size
+  2. Потом вообще выкинуть этот инит и передавать либо на старте в пропсах, либо вообще без них
+
+*/
 class LastQrScannerPreview extends StatefulWidget {
   const LastQrScannerPreview({
     Key key,
@@ -71,11 +81,10 @@ class QRViewController {
       : channel = MethodChannel('last_qr_scanner/qrview_$id');
   final MethodChannel channel;
 
-  void init(GlobalKey qrKey) {
+  void init(Size size) {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-      final RenderBox renderBox = qrKey.currentContext.findRenderObject();
       channel.invokeMethod("setDimensions",
-          {"width": renderBox.size.width, "height": renderBox.size.height});
+          {"width": size.width, "height": size.height});
     }
   }
 
